@@ -9,6 +9,7 @@
 
 @mixin half-circle-props($shape, $color, $ch, $cw, $cdeg, $bh, $bw, $bl, $bt) {
     position: absolute;
+    z-index: 1;
     &::after {
         content: "";
         position: absolute;
@@ -144,6 +145,9 @@
     font-family: $font-secondary;
     color: $black;
     margin-bottom: 40px;
+    @include mobile {
+        max-width: 100%;
+    }
 }
 .section-subheader {
     font-weight: map-get($font-weights, 'regular');
@@ -166,9 +170,15 @@
 }
 .ml-100 {
     margin-left: 100px;
+    @include mobile {
+        margin-left: 20px;
+    }
 }
 .mr-100 {
     margin-right: 100px;
+    @include mobile {
+        margin-right: 20px;
+    }
 }
 main {
     padding: 16px 0;
@@ -557,21 +567,18 @@ main {
 .aboutus .yellow-circle {
     @include half-circle-props(circle, $lightYellow, 100px, 50px, 235deg, 100px, 100px, -46px, 20px);
     transform: rotate(-30deg);
-    z-index: 1;
     top: 50px;
     left: 14px;
 }
 .aboutus .purple-circle {
     @include half-circle-props(circle, $lightPurple, 70px, 35px, -47deg, 66px, 66px, -18px, -9px);
     transform: rotate(228deg);
-    z-index: 1;
     top: 56px;
     right: 92px;
 }
 .aboutus .pink-rect {
     @include half-circle-props(rect, $lightPink, 100px, 50px, 90deg, 66px, 66px, 22px, 54px);
     transform: rotate(6deg);
-    z-index: 1;
     bottom: 55px;
     right: 138px;
 }
@@ -623,6 +630,17 @@ main {
     font-size: 22px;
     background-color: $color;
 }
+.quality::after {
+    content: "";
+    position: absolute;
+    background-color: #f5f9fe;
+    top: 124px;
+    bottom: -80px;
+    left: 185px;
+    right: 0;
+    z-index: -1;
+    border-radius: 20px 0 0 20px;
+}
 .quality_panel {
     font-family: $font-secondary;
     @include mobile {
@@ -632,6 +650,19 @@ main {
     @include tablet {
         flex-direction: column;
         align-items: center;
+    }
+    &_1, &_2 {
+        top: 40px;
+    }
+    @include mobile {
+        &_1, &_2 {
+            top: 0;
+        }
+    }
+    @include tablet {
+        &_1, &_2 {
+            top: 0;
+        }
     }
     &_container {
         max-width: 250px;
@@ -663,5 +694,215 @@ main {
         font-size: $fontsize-primary;
         font-weight: map-get($font-weights, 'light');
         line-height: 1.5;
+    }
+}
+.quality_panel .yellow-circle {
+    @include half-circle-props(circle, $lightYellow, 100px, 50px, 235deg, 100px, 100px, -46px, 20px);
+    transform: rotate(-30deg);
+    top: 75px;
+    right: 300px;
+}
+.quality_panel .purple-circle {
+    @include half-circle-props(circle, $lightPurple, 70px, 35px, -47deg, 66px, 66px, -18px, -9px);
+    transform: rotate(228deg);
+    bottom: -100px;
+    left: 160px;
+}
+
+.testimonials {
+    &_left {
+        width: 50%;
+        justify-content: flex-end;
+    }
+    &_right {
+        width: 50%;
+        @include mobile {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+    &_right_para {
+        font-family: $font-primary;
+        font-size: $fontsize-primary + 2;
+        color: $grey;
+        padding: 0 10px;
+        margin-bottom: 18px;
+        > span {
+            text-decoration: underline;
+            color: $orange;
+        }
+    }
+    &_right_content > i {
+        font-size: $fontsize-primary + 12;
+        color: white;
+        background-color: $darkenBlue;
+        position: absolute;
+        top: 12px;
+        left: -46px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        display: flex !important;
+    }
+    &_right_content > p {
+        font-family: $font-primary;
+        font-size: $fontsize-primary + 8;
+        line-height: 1.6;
+        padding: 0 10px;
+        max-width: 395px;
+    }
+    &_right_content > p:last-of-type {
+        font-size: $fontsize-primary + 2;
+        margin: 24px 0;
+        span {
+            color: $grey;
+        }
+    }
+    &_arrows {
+        .fa-arrow-left {
+            color: $grey;
+            font-size: $fontsize-primary + 6;
+        }
+        .fa-arrow-right-long {
+            color: $black;
+            font-size: $fontsize-primary + 12;
+            margin-left: 20px;
+        }
+    }
+}
+.testimonials_left .yellow-circle {
+    @include half-circle-props(circle, $lightYellow, 100px, 50px, 235deg, 100px, 100px, -46px, 20px);
+    transform: rotate(-30deg);
+    bottom: 60px;
+    right: 50px;
+}
+.testimonials .purple-circle {
+    @include half-circle-props(circle, $lightPurple, 70px, 35px, -47deg, 66px, 66px, -18px, -9px);
+    transform: rotate(228deg);
+    bottom: 220px;
+    right: 70px;
+}
+.testimonials .pink-rect {
+    @include half-circle-props(rect, $lightPink, 100px, 50px, 90deg, 66px, 66px, 22px, 54px);
+    transform: rotate(-30deg);
+    top: 134px;
+    left: 0;
+}
+
+.faq {
+    background-color: $thinBlue;
+    font-family: $font-primary;
+    &_container {
+        @include mobile {
+            flex-direction: column;
+        }
+    }
+    &_left, &_right {
+        width: 50%;
+        flex-direction: column;
+        padding: 0 16px;
+        @include mobile {
+            width: 100%;
+        }
+    }
+    &_panel {
+        position: relative;
+        background-color: $white;
+        padding: 0 20px 0 50px;
+        width: 100%;
+        margin: 15px 0;
+        box-shadow: 0px 7px 4px $greyishBlue;
+        > i {
+            position: absolute;
+            top: 20px;
+            left: 18px;
+        }
+    }
+    &_panel > h6 {
+        font-weight: map-get($font-weights, 'regular');
+        font-size: $fontsize-primary + 3;
+        margin: 16px 0 14px;
+    }
+    &_panel > p {
+        font-size: $fontsize-primary;
+        color: $grey;
+        margin-bottom: 16px;
+    }
+}
+
+.contact {
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 200px;
+        background-color: $thinBlue;z-index: -1;
+    }
+    &_container {
+        width: 100%;
+        background-color: $white;
+        border-bottom: 4px solid $orange;
+        @include mobile {
+            flex-direction: column;
+        }
+    }
+    &_left, &_right {
+        padding: 60px;
+        width: 50%;
+        @include mobile {
+            width: 100%;
+            padding: 20px;
+        }
+    }
+    &_left_para {
+        font-family: $font-primary;
+        font-size: $fontsize-primary;
+        color: $grey;
+        margin-top: -10px;
+    }
+    &_left_phone {
+        font-family: $font-primary;
+        font-size: $fontsize-primary + 4;
+        margin-top: 4px;
+        color: $orange;
+    }
+
+    &_right {
+        input {
+            width: 100%;
+            height: 44px;
+            border: 1px solid $midGrey;
+            background-color: $lightenBlue;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-family: $font-secondary;
+            margin: 8px 0;
+            color: $lightGrey;
+            &::placeholder {
+                color: $lightGrey;
+            }
+            &:focus {
+                outline: 0;
+            }
+        }
+        .handle-input-icon {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: $fontsize-primary - 2;
+            color: $lightGrey;
+        }
+        > button {
+            color: $white;
+            background-color: $darkenBlue;
+            padding: 14px 20px;
+            border-radius: 4px;
+            border: 0;
+            font-size: $fontsize-primary - 1;
+            font-family: $font-secondary;
+            margin: 15px 0;
+        }
     }
 }
