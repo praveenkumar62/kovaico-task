@@ -1,188 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Dongle:wght@300&family=Poppins:wght@300;400;500;600&family=Rubik:wght@300;400;500&display=swap');
 @import './variables';
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-@mixin half-circle-props($shape, $color, $ch, $cw, $cdeg, $bh, $bw, $bl, $bt) {
-    position: absolute;
-    z-index: 1;
-    &::after {
-        content: "";
-        position: absolute;
-        left: $bl;
-        top: $bt;
-        height: $bh;
-        width: $bw;
-        border-bottom: 1px solid #000;
-        border-radius: 50%;
-        transform: rotate($cdeg);
-    }
-    > i {
-        position: absolute;
-        width: $cw;
-        height: $ch;
-        overflow: hidden;
-        &::after {
-            position: absolute;
-            background-color: $color;
-            content: '';
-            opacity: 0.8;
-            @if ($shape == 'circle') {
-                border-radius: 50%;
-                height: 100%;
-                left: -50px;
-                right: 0;
-            } @else {
-                border-radius: 46px;
-                height: 200px;
-                left: 0;
-                right: -50px;
-                top: 0;
-            }
-        }
-    }
-}
-@mixin mobile() {
-    @media (max-width: 767px) {
-        @content;
-    }
-}
-@mixin tablet() {
-    @media (min-width: 768px) and (max-width: 991px) {
-        @content;
-    }
-}
-@mixin mini-desktop() {
-    @media (min-width: 992px) and (max-width: 1199px) {
-        @content;
-    }
-}
-@mixin desktop() {
-    @media (min-width: 1200px) and (max-width: 1399px) {
-        @content;
-    }
-}
-@mixin large-desktop() {
-    @media (min-width: 1400px) {
-        @content;
-    }
-}
-.container {
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    @include mobile {
-        width: 95%;
-    }
-    @include tablet {
-        width: 750px;
-    }
-    @include mini-desktop {
-        width: 970px;
-    }
-    @include desktop {
-        width: 1170px;
-    }
-    @include large-desktop {
-        width: 1360px;
-    }
-}
-@mixin flexProps($type: none) {
-    display: flex;
-    @if ($type == 'vertical') {
-        align-items: center;
-    } @else if ($type == 'horizontal') {
-        justify-content: center;
-    } @else if ($type == 'both') {
-        align-items: center;
-        justify-content: center;
-    }
-}
-.flex {
-    @include flexProps();
-}
-.vertical-center {
-    @include flexProps(vertical);
-}
-.horizontal-center {
-    @include flexProps(horizontal);
-}
-.all-center {
-    @include flexProps(both);
-}
-.cx-relative {
-    position: relative;
-}
-.text-center {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-.spacer {
-    height: 125px;
-}
-.img-responsive {
-    max-width: 100%;
-    border-radius: 10px;
-}
-.hide-mobile {
-    @include mobile {
-        display: none;
-    }
-}
-.hide-tablet {
-    @include tablet {
-        display: none;
-    }
-}
-.section-header {
-    font-size: $fontsize-primary + 28;
-    font-family: $font-secondary;
-    color: $black;
-    margin-bottom: 40px;
-    @include mobile {
-        max-width: 100%;
-    }
-}
-.section-subheader {
-    font-weight: map-get($font-weights, 'regular');
-    font-size: $fontsize-primary;
-    font-family: $font-secondary;
-    color: $lightGrey;
-    margin: 16px 0;
-}
-.ml-45 {
-    margin-left: 45px;
-    @include mobile {
-        margin-left: 15px;
-    }
-}
-.mr-45 {
-    margin-right: 45px;
-    @include mobile {
-        margin-right: 15px;
-    }
-}
-.ml-100 {
-    margin-left: 100px;
-    @include mobile {
-        margin-left: 20px;
-    }
-}
-.mr-100 {
-    margin-right: 100px;
-    @include mobile {
-        margin-right: 20px;
-    }
-}
-main {
-    padding: 16px 0;
-}
+@import './base';
 
 .header {
     justify-content: space-between;
@@ -264,6 +82,7 @@ main {
         @include mobile {
             max-width: 95%;
             margin: 0 auto;
+            padding: 60px 15px;
         }
     }
     &_left_header {
@@ -272,16 +91,22 @@ main {
         font-weight: map-get($font-weights, 'extra-bold');
         line-height: 1.1;
         margin: 6px 0;
-        &::before {
+        span::before {
             content: '';
             position: absolute;
             background-color: rgb(241 198 148 );
-            top: 46px;
+            top: 52px;
             left: 0;
+            right: -5px;
             height: 15px;
-            width: 296px;
             z-index: -1;
             border-radius: 3px;
+        }
+        @include mobile {
+            font-size: $fontsize-primary + 36px;
+            span::before {
+                top: 44px;
+            }
         }
     }
     &_left_content {
@@ -300,6 +125,7 @@ main {
         color: $white;
         border-radius: 3px;
         box-shadow: 10px 10px 0px $shadedBlue;
+        cursor: pointer;
         > i {
             font-size: $fontsize-primary + 1;
             margin-right: 6px;
@@ -362,6 +188,24 @@ main {
     }
     &_poppers_3 {
         @include popper-props(initial, -40px, 20px, initial, $green);
+    }
+    &_right .cyan-circle {
+        @include half-circle-props(circle, $cyan, 100px, 50px, 235deg, 100px, 100px, -46px, 20px);
+        transform: rotate(-30deg);
+        top: 90px;
+        right: 100px;
+    }
+    &_right .purple-circle {
+        @include half-circle-props(circle, $darkPurple, 70px, 35px, -47deg, 66px, 66px, -18px, -9px);
+        transform: rotate(228deg);
+        top: 300px;
+        left: 22px;
+    }
+    &_right .pink-rect {
+        @include half-circle-props(rect, $lightPink, 100px, 50px, 90deg, 66px, 66px, 22px, 54px);
+        transform: rotate(0deg);
+        bottom: 55px;
+        right: 85px;
     }
 }
 
@@ -535,6 +379,7 @@ main {
             font-size: $fontsize-primary + 4;
             color: $grey;
             width: calc(100% / 3);
+            cursor: pointer;
             &.active {
                 color: $black;
                 text-decoration: underline;
@@ -762,11 +607,13 @@ main {
         .fa-arrow-left {
             color: $grey;
             font-size: $fontsize-primary + 6;
+            cursor: pointer;
         }
         .fa-arrow-right-long {
             color: $black;
             font-size: $fontsize-primary + 12;
             margin-left: 20px;
+            cursor: pointer;
         }
     }
 }
@@ -816,12 +663,14 @@ main {
             position: absolute;
             top: 20px;
             left: 18px;
+            cursor: pointer;
         }
     }
     &_panel > h6 {
         font-weight: map-get($font-weights, 'regular');
         font-size: $fontsize-primary + 3;
         margin: 16px 0 14px;
+        cursor: pointer;
     }
     &_panel > p {
         font-size: $fontsize-primary;
@@ -903,6 +752,82 @@ main {
             font-size: $fontsize-primary - 1;
             font-family: $font-secondary;
             margin: 15px 0;
+            cursor: pointer;
+        }
+    }
+}
+.contact .yellow-circle {
+    @include half-circle-props(circle, $lightYellow, 100px, 50px, 235deg, 100px, 100px, -46px, 20px);
+    transform: rotate(-40deg);
+    top: -10px;
+    left: -30px;
+}
+.contact .pink-circle {
+    @include half-circle-props(circle, $lightPink, 70px, 35px, -47deg, 66px, 66px, -18px, -9px);
+    transform: rotate(228deg);
+    bottom: -25px;
+    right: 25px;
+    @include mobile {
+        right: 55px;
+    }
+}
+
+.footer {
+    &_container {
+        @include mobile {
+            flex-direction: column;
+        }
+    }
+    &_column {
+        font-family: $font-secondary;
+        > h3 {
+            font-weight: map-get($font-weights, 'medium');
+            font-size: $fontsize-primary + 10;
+        }
+        > h4 {
+            font-weight: map-get($font-weights, 'regular');
+            font-size: $fontsize-primary + 2;
+            margin: 5px 0 14px;
+            line-height: 1.4;
+        }
+        > address {
+            color: $grey;
+            font-size: $fontsize-primary - 1;
+            line-height: 1.7;
+            font-style: normal;
+        }
+        &_contact {
+            font-family: $font-primary;
+            color: $orange;
+            font-size: $fontsize-primary + 2;
+        }
+        &_icons i {
+            font-size: $fontsize-primary;
+            color: $grey;
+            margin-right: 8px;
+            cursor: pointer;
+            &:hover {
+                color: $black;
+            }
+        }
+        &_content {
+            font-size: $fontsize-primary - 1;
+            color: $black;
+            > span {
+                color: $grey;
+                margin-left: 5px;
+            }
+            @include mobile {
+                text-align: left;
+            }
+        }
+        padding: 20px 15px;
+        width: 25%;
+        @include tablet {
+            width: 50%;
+        }
+        @include mobile {
+            width: 100%;
         }
     }
 }

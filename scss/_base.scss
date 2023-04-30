@@ -1,0 +1,183 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@mixin half-circle-props($shape, $color, $ch, $cw, $cdeg, $bh, $bw, $bl, $bt) {
+    position: absolute;
+    z-index: 1;
+    &::after {
+        content: "";
+        position: absolute;
+        left: $bl;
+        top: $bt;
+        height: $bh;
+        width: $bw;
+        border-bottom: 1px solid #000;
+        border-radius: 50%;
+        transform: rotate($cdeg);
+    }
+    > i {
+        position: absolute;
+        width: $cw;
+        height: $ch;
+        overflow: hidden;
+        &::after {
+            position: absolute;
+            background-color: $color;
+            content: '';
+            opacity: 0.8;
+            @if ($shape == 'circle') {
+                border-radius: 50%;
+                height: 100%;
+                left: -50px;
+                right: 0;
+            } @else {
+                border-radius: 46px;
+                height: 200px;
+                left: 0;
+                right: -50px;
+                top: 0;
+            }
+        }
+    }
+}
+@mixin mobile() {
+    @media (max-width: 767px) {
+        @content;
+    }
+}
+@mixin tablet() {
+    @media (min-width: 768px) and (max-width: 991px) {
+        @content;
+    }
+}
+@mixin mini-desktop() {
+    @media (min-width: 992px) and (max-width: 1199px) {
+        @content;
+    }
+}
+@mixin desktop() {
+    @media (min-width: 1200px) and (max-width: 1399px) {
+        @content;
+    }
+}
+@mixin large-desktop() {
+    @media (min-width: 1400px) {
+        @content;
+    }
+}
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    @include mobile {
+        width: 95%;
+    }
+    @include tablet {
+        width: 750px;
+    }
+    @include mini-desktop {
+        width: 970px;
+    }
+    @include desktop {
+        width: 1170px;
+    }
+    @include large-desktop {
+        width: 1360px;
+    }
+}
+@mixin flexProps($type: none) {
+    display: flex;
+    @if ($type == 'vertical') {
+        align-items: center;
+    } @else if ($type == 'horizontal') {
+        justify-content: center;
+    } @else if ($type == 'both') {
+        align-items: center;
+        justify-content: center;
+    }
+}
+.flex {
+    @include flexProps();
+}
+.vertical-center {
+    @include flexProps(vertical);
+}
+.horizontal-center {
+    @include flexProps(horizontal);
+}
+.all-center {
+    @include flexProps(both);
+}
+.cx-relative {
+    position: relative;
+}
+.text-center {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.spacer {
+    height: 125px;
+}
+.img-responsive {
+    max-width: 100%;
+    border-radius: 10px;
+}
+.hide-mobile {
+    @include mobile {
+        display: none;
+    }
+}
+.hide-tablet {
+    @include tablet {
+        display: none;
+    }
+}
+.section-header {
+    font-size: $fontsize-primary + 28;
+    font-family: $font-secondary;
+    color: $black;
+    margin-bottom: 40px;
+    @include mobile {
+        max-width: 100%;
+    }
+}
+.section-subheader {
+    font-weight: map-get($font-weights, 'regular');
+    font-size: $fontsize-primary;
+    font-family: $font-secondary;
+    color: $lightGrey;
+    margin: 16px 0;
+}
+.ml-45 {
+    margin-left: 45px;
+    @include mobile {
+        margin-left: 15px;
+    }
+}
+.mr-45 {
+    margin-right: 45px;
+    @include mobile {
+        margin-right: 15px;
+    }
+}
+.ml-100 {
+    margin-left: 100px;
+    @include mobile {
+        margin-left: 20px;
+    }
+}
+.mr-100 {
+    margin-right: 100px;
+    @include mobile {
+        margin-right: 20px;
+    }
+}
+main {
+    padding: 16px 0;
+}
